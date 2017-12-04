@@ -86,6 +86,9 @@ public class StudentServiceImpl implements StudentService {
 				if (name.equals(students[i].getName())) {
 					student[j] = students[i];
 					j++;
+					if(j == limit) {
+						break;
+					}
 				}
 			}
 		}
