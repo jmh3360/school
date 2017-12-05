@@ -21,16 +21,28 @@ public class StudentServiceImpl implements StudentService {
 
 	// void setter 저장의 의미
 
-	public StudentServiceImpl(int count) {
+	public StudentServiceImpl() {
 		this.count = 0;
-		students = new StudentBean[count];
+		students = new StudentBean[2];
 
 	}
 
 	@Override
 	public void addStudent(StudentBean student) {
-		students[count] = student;
-		count++;
+		if(count == students.length) {
+		StudentBean[] newArr = new StudentBean[count + 2];
+		System.arraycopy(students, 0, newArr, 0, count);
+		students = newArr;
+		}
+		students[count++] = student;
+		
+		/*if(this.count == students.length) {
+			StudentBean[] newStudent = new StudentBean[count + 2];
+		//newStudent = students;
+		System.arraycopy(students, 0, newStudent, 0, count);
+		//students는 초기값, 몇번째 자리까지 복사 할 것인가,복사할 곳, newstudent의 복사될 위치, 원본의 총 길이
+		*/
+		
 
 	}
 
@@ -94,4 +106,34 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return student;
 	}
+
+	@Override
+	public void updatePassword(StudentBean student) {
+		
+		for(int i = 0; i < count; i++) {
+			if(student.getId().equals(students[i].getId())) {
+			this.students[i].setPw(student.getPw()); 
+		break;
+		
+			}
+		
+		}
+		//StudentBean t = findStudentById(student.getId());
+		//t.setPw(student.getPw());
+		//findStudentById(student.getId()).setPw(student.getPw());	
+	}
+
+	@Override
+	public void delId(String id) {
+		for(int i = 0; i < count; i++) {
+			if(id.equals(students[i].getId())) {
+			this.students[i] = null;
+			this.students[i] = this.students[count-1]; 
+			students[count-1]=null;
+			count--;
+			break;			
+		}
+		}
+	}
+
 }

@@ -44,4 +44,5 @@ public class StudentBean {
 		return String.format("[이름] %s [id] %s [비번] %s",
 				name, id, pw);
 	}
+
 }
